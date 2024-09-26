@@ -7,6 +7,7 @@ flask-sqlalchemy==2.5.1
 flask-wtf==1.0.0
 wtforms==2.3.3
 Flask-Login==0.5.0
-Werkzeug==2.0.3  # This fixes the url_quote issue
-Flask-Security==3.0.0  # This fixes the missing flask_security error
-pytz==2022.1  # Timezone support, required by flask_babelex
+Werkzeug==2.0.3  # Fixes url_quote issue
+Flask-Security==3.0.0  # Fixes flask_security issue
+pytz==2022.1  # Required by flask_babelex
+email-validator==1.1.3  # Fixes email validation in WTForms
