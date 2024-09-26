@@ -1,5 +1,6 @@
 Flask==2.1.0
-Flask-SQLAlchemy==2.5.1
+SQLAlchemy==1.4.22  # Downgrade to SQLAlchemy 1.4.x
+
 Flask-Security==3.0.0
 Flask-Login==0.5.0
 Flask-Migrate==3.0.0
