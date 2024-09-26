@@ -13,4 +13,6 @@ Pillow==9.0.1  # For image processing with PIL
 requests==2.26.0  # For making HTTP requests
 uuid==1.30  # For UUID generation (if not part of standard lib in your Python version)
 gunicorn==20.1.0
+pytz==2022.1
+
 
