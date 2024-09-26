@@ -57,7 +57,6 @@ class User(db.Model, UserMixin):
     linkedin_link = db.Column(db.String(255))
     github_link = db.Column(db.String(255))
     facebook_link = db.Column(db.String(255))
-
     roles = db.relationship('Role', secondary=roles_users, backref=db.backref('users', lazy='dynamic'))
 
 
