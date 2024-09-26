@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #e0f7fa; /* Light background color */
+            color: #000000; /* Black text for better contrast */
+        }
+        .table {
+            background-color: #ffffff; /* White background for table */
+            color: #000000; /* Black text for better visibility */
+            border: 1px solid transparent; /* For gradient border */
+        }
+        .table th, .table td {
+            border-color: #e0f7fa; /* Light border color */
+        }
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #b2ebf2; /* Light striped background */
+        }
+        .btn-approve, .btn-delete, .btn-primary {
+            background: none; /* No background for plain buttons */
+            color: #1CB5E0; /* Text color for buttons */
+            border: 2px solid #1CB5E0; /* Border color matching the theme */
+            transition: background 0.3s, color 0.3s;
+        }
+        .btn-approve:hover, .btn-delete:hover, .btn-primary:hover {
+            background-color: #1CB5E0; /* Background on hover */
+            color: white; /* White text on hover */
+        }
+        .badge-select {
+            width: 100px;
+        }
+        th {
+            border-bottom: 2px solid #1CB5E0; /* Header border */
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Admin Dashboard</h2>
+    <h4>Pending User Approvals</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Badge</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.username }}</td>
+                <td>{{ student.email }}</td>
+                <td>
+                    <form action="{{ url_for('assign_badge', user_id=student.id) }}" method="POST" class="d-inline">
+                        <select name="badge" class="form-control badge-select">
+                            <option value="Gold" {% if student.badge == 'Gold' %}selected{% endif %}>Gold</option>
+                            <option value="Silver" {% if student.badge == 'Silver' %}selected{% endif %}>Silver</option>
+                            <option value="Bronze" {% if student.badge == 'Bronze' %}selected{% endif %}>Bronze</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary">Assign</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="{{ url_for('approve_user', user_id=student.id) }}" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-approve">Approve</button>
+                    </form>
+                    <form action="{{ url_for('delete_user', user_id=student.id) }}" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-delete">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h4>Approved Users</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Badge</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in approved_students %}
+            <tr>
+                <td>{{ student.username }}</td>
+                <td>{{ student.email }}</td>
+                <td>
+                    <form action="{{ url_for('assign_badge', user_id=student.id) }}" method="POST" class="d-inline">
+                        <select name="badge" class="form-control badge-select">
+                            <option value="Gold" {% if student.badge == 'Gold' %}selected{% endif %}>Gold</option>
+                            <option value="Silver" {% if student.badge == 'Silver' %}selected{% endif %}>Silver</option>
+                            <option value="Bronze" {% if student.badge == 'Bronze' %}selected{% endif %}>Bronze</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary mt-2">Assign Badge</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="{{ url_for('delete_user', user_id=student.id) }}" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-danger">Delete User</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

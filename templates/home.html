@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <!-- Include Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom Color Scheme */
+        body {
+            background-color: #E0F7FA; /* Light blue background */
+            color: #000000; /* Black text color */
+        }
+
+        .navbar {
+            background-color: #A9DFE6; /* Light blue background for navbar */
+        }
+        .navbar .nav-link {
+            color: #000000; /* Black text for navbar links */
+        }
+        .navbar .nav-link:hover {
+            color: #FFFFFF; /* White on hover */
+        }
+        
+        .hero {
+            background-color: #A9DFE6; /* Light blue background for hero section */
+            padding: 80px 0;
+            text-align: center;
+            color: #000000; /* Black text for hero section */
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #000000; /* Black for hero title */
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        /* Custom button styles */
+        .btn-custom {
+            margin: 5px;
+            color: #FFFFFF; /* White text for buttons */
+        }
+        .btn-primary {
+            background-color: #A9DFE6; /* Light blue buttons */
+            border-color: #A9DFE6;
+        }
+        .btn-primary:hover {
+            background-color: #87CFC0; /* Darker shade on hover */
+        }
+        .btn-secondary {
+            background-color: #FFFFFF; /* White buttons */
+            border-color: #A9DFE6;
+            color: #000000; /* Black text */
+        }
+        .btn-secondary:hover {
+            background-color: #f0f0f0; /* Slightly darker on hover */
+        }
+
+        /* Profile Card */
+        .profile-card {
+            border: 1px solid #CCCCCC; /* Light gray border */
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #FFFFFF; /* White card background */
+            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+        .profile-card h4 {
+            margin-bottom: 10px;
+            color: #000000; /* Black text for the card title */
+        }
+        .profile-card p {
+            color: #666666; /* Light gray text for description */
+        }
+        .profile-card img {
+            width: 150px; /* Fixed width for placeholder */
+            height: 150px; /* Fixed height for placeholder */
+            object-fit: cover; /* Ensure the image fits within the area without distortion */
+            border-radius: 50%; /* Circular shape */
+            border: 2px solid #A9DFE6; /* Light blue border around image */
+        }
+        .profile-links a {
+            margin-right: 10px;
+            color: #000000; /* Black text for social links */
+            border: 1px solid #A9DFE6; /* Light blue border */
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
+        .profile-links a:hover {
+            color: #FFFFFF; /* White on hover */
+            background-color: #A9DFE6; /* Light blue on hover */
+            border-color: #A9DFE6;
+        }
+
+        .btn-view {
+            background-color: #A9DFE6; /* Light blue View Portfolio button */
+            color: #FFFFFF;
+            border: none;
+        }
+        .btn-view:hover {
+            background-color: #87CFC0; /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" style="color:#000000;">Portfolio System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('signup') }}">Sign Up</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('signin') }}">Student Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin_signin') }}">Admin Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Welcome to the Portfolio System</h1>
+            <p>Create your own portfolio and showcase your talents. Login or sign up to get started!</p>
+            <a href="{{ url_for('view_own_portfolio') }}" class="btn btn-primary btn-custom">View My Portfolio</a>
+            <a href="{{ url_for('portfolio') }}" class="btn btn-secondary btn-custom">Edit Portfolio</a>
+        </div>
+    </section>
+
+    <section class="container mt-5">
+        <h2 class="text-center mb-5" style="color:#000000;">Student Portfolios</h2>
+        <div class="row">
+            <!-- Loop through the students -->
+            {% for student in students %}
+            <div class="col-md-4">
+                <div class="profile-card">
+                    <h4>{{ student.username }}</h4>
+                    <!-- Display the profile image if available -->
+                    {% if student.image_filename %}
+                    <img src="{{ url_for('static', filename='uploads/' ~ student.image_filename) }}" alt="{{ student.username }}'s Profile Picture" class="img-fluid mb-3">
+                    {% else %}
+                    <img src="https://via.placeholder.com/150" alt="Default Profile Picture" class="img-fluid mb-3">
+                    {% endif %}
+
+                    <!-- Display description if available -->
+                    <p>{{ student.description or "No description provided." }}</p>
+
+                    <!-- Social links if available -->
+                    <div class="profile-links">
+                        {% if student.linkedin_link %}
+                        <a href="{{ student.linkedin_link }}" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                        {% endif %}
+                        {% if student.github_link %}
+                        <a href="{{ student.github_link }}" target="_blank" class="btn btn-sm btn-outline-dark"><i class="fab fa-github"></i> GitHub</a>
+                        {% endif %}
+                        {% if student.facebook_link %}
+                        <a href="{{ student.facebook_link }}" target="_blank" class="btn btn-sm btn-outline-primary"><i class="fab fa-facebook"></i> Facebook</a>
+                        {% endif %}
+                    </div>
+
+                    <!-- Link to View Portfolio -->
+                    <a href="{{ url_for('view_portfolio', user_id=student.id) }}" class="btn btn-view btn-sm mt-3">View Portfolio</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Include Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Include FontAwesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- For Social Media Icons -->
+</body>
+</html>

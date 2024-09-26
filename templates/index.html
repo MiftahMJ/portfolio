@@ -1,0 +1,75 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login - Register Form | Flask</title>
+
+    <!-- Reset CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    
+    <!-- Latest compiled and minified Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Custom Styles -->
+    <style>
+        /* Body background with light blue color */
+        body {
+            background-color: #E0F7FA;
+            font-family: Arial, sans-serif;
+            color: #000000; /* Black text */
+        }
+
+        /* Container styling */
+        .container {
+            margin-top: 40px;
+        }
+
+        /* Button styles */
+        .btn-success {
+            background-color: #A9DFE6; /* Light blue background for login button */
+            color: #000000; /* Black text */
+            border-color: #A9DFE6;
+        }
+        .btn-success:hover {
+            background-color: #87CFC0; /* Slightly darker blue on hover */
+            border-color: #87CFC0;
+        }
+
+        .btn-primary {
+            background-color: #FFFFFF; /* White background for register button */
+            color: #000000; /* Black text */
+            border-color: #A9DFE6; /* Light blue border */
+        }
+        .btn-primary:hover {
+            background-color: #f0f0f0; /* Slightly darker white on hover */
+        }
+
+        /* Styling the list to center buttons */
+        ul {
+            padding: 0;
+            list-style-type: none;
+        }
+
+        ul li {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <ul>
+                    <li><a href="/login" class="btn form-control btn-success">Login</a></li>
+                    <li><a href="/register" class="btn form-control btn-primary">Register</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>

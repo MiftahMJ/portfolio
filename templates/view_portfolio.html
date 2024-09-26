@@ -1,0 +1,92 @@
+{% extends "base.html" %} 
+{% block title %}{{ user.username }}'s Portfolio{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="mb-4" style="color: #000000;">{{ user.username }}'s Portfolio</h2>
+
+            <style>
+                .profile-image {
+                    width: 150px;      /* Set fixed width */
+                    height: 150px;     /* Set fixed height */
+                    border-radius: 50%; /* Make the image circular */
+                    border: 2px solid #A9DFE6; /* Light blue border */
+                    object-fit: cover; /* Ensure the image fits within the circle without distortion */
+                    display: block;    /* Ensures consistent block behavior */
+                    margin-bottom: 20px;
+                }
+                .list-group-item {
+                    background-color: #FFFFFF; /* White background for list items */
+                    color: #000000; /* Black text */
+                    border: 1px solid #A9DFE6; /* Light blue border */
+                }
+                .list-group-item a {
+                    color: #000000; /* Black link color */
+                    text-decoration: none;
+                }
+                .list-group-item a:hover {
+                    color: #87CFC0; /* Light blue hover color for links */
+                }
+                .btn-secondary {
+                    background-color: #A9DFE6; /* Light blue button */
+                    color: #000000; /* Black text */
+                    border: none;
+                }
+                .btn-secondary:hover {
+                    background-color: #87CFC0; /* Darker blue on hover */
+                }
+            </style>
+
+            <!-- YouTube Video Embed -->
+            {% if user.youtube_link %}
+            <div class="mb-4">
+                <h4 style="color: #000000;">YouTube Video</h4>
+                <iframe width="100%" height="315" src="{{ youtube_embed_url }}" frameborder="0" allowfullscreen></iframe>
+            </div>
+            {% endif %}
+
+            <!-- Image Upload -->
+            {% if user.image_filename %}
+            <div class="mb-4">
+                <h4 style="color: #000000;">Uploaded Image</h4>
+                <img src="{{ url_for('static', filename='uploads/' ~ user.image_filename) }}" class="img-fluid profile-image" alt="{{ user.username }}'s profile image">
+            </div>
+            {% endif %}
+
+            <!-- Description -->
+            <div class="mb-4">
+                <h4 style="color: #000000;">Description</h4>
+                <p style="color: #000000;">{{ user.description or "No description provided." }}</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <h4 style="color: #000000;">Social Links</h4>
+            <ul class="list-group">
+                {% if user.linkedin_link %}
+                <li class="list-group-item">
+                    <a href="{{ user.linkedin_link }}" target="_blank">LinkedIn</a>
+                </li>
+                {% endif %}
+                {% if user.github_link %}
+                <li class="list-group-item">
+                    <a href="{{ user.github_link }}" target="_blank">GitHub</a>
+                </li>
+                {% endif %}
+                {% if user.facebook_link %}
+                <li class="list-group-item">
+                    <a href="{{ user.facebook_link }}" target="_blank">Facebook</a>
+                </li>
+                {% endif %}
+            </ul>
+
+            <!-- Show "Edit Portfolio" button only if the logged-in user is viewing their own portfolio -->
+            {% if current_user.id == user.id %}
+            <a href="{{ url_for('portfolio') }}" class="btn btn-secondary btn-block mt-4">Edit Portfolio</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
