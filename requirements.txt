@@ -1,21 +1,17 @@
 Flask==2.1.0
-SQLAlchemy==1.4.22  # Downgrade to SQLAlchemy 1.4.x
+SQLAlchemy==1.4.22  # Downgrade to SQLAlchemy 1.4.x to avoid compatibility issues
 
 Flask-Security==3.0.0
 Flask-Login==0.5.0
 Flask-Migrate==3.0.0
 passlib==1.7.4
-Werkzeug==2.0.3  # To fix url_quote issue
+Werkzeug==2.0.3  # To fix any url_quote issue
 Flask-WTF==1.0.0
 WTForms==2.3.3
 email-validator==1.1.3  # For email validation in WTForms
-psycopg2-binary==2.9.1  # For PostgreSQL (if used)
+psycopg2-binary==2.9.1  # For PostgreSQL
 Pillow==9.0.1  # For image processing with PIL
 requests==2.26.0  # For making HTTP requests
-uuid==1.30  # For UUID generation (if not part of standard lib in your Python version)
+uuid==1.30  # For UUID generation
 gunicorn==20.1.0
 pytz==2022.1
-psycopg2-binary==2.9.1
-
-
-
