@@ -21,7 +21,13 @@ app = Flask(__name__)
 
 # Configurations for the app and database
 app.config['SECRET_KEY'] = '6e21170d998b7e87cb3eb38324764a4c78984905a71b2b6d'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///students.db'
+# Use your PostgreSQL database URL instead of SQLite
+# Fetch the database URL from an environment variable, falling back to the external URL for local development
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
+    'DATABASE_URL',  # Render will provide this environment variable when deployed
+    'postgresql://db_co5j_user:8pn1008sT5dFKLtC0n6voHxhxPSJaqcc@dpg-crqqq5tds78s73c3d9u0-a.oregon-postgres.render.com/db_co5j'  # Fallback for local development
+)
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECURITY_PASSWORD_SALT'] = 'a4e3f0b951e808b197c2ef8b9dda17f0c17c81df97e8c9a3365dd31ff42053d0'
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
