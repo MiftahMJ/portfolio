@@ -79,19 +79,19 @@ with app.app_context():
 def create_admin():
     with app.app_context():
         admin_role = user_datastore.find_or_create_role(name='admin', description='Administrator')
-        admin_user = user_datastore.find_user(username="admin") or user_datastore.find_user(email="admin@example.com")
+        admin_user = user_datastore.find_user(email="admin@example.com")
 
-        if not admin_user:
-            # Hash the admin password using Argon2
-            user = user_datastore.create_user(username="admin", email="admin@example.com",
-                                              password=argon2.hash("adminpass"),
-                                              active=True, approved=True)
-            user_datastore.add_role_to_user(user, admin_role)
+        if admin_user:
+            db.session.delete(admin_user)  # Remove existing admin user
             db.session.commit()
-            print("Admin user created successfully.")
-        else:
-            print("Admin user already exists.")
 
+        # Hash the admin password using Argon2
+        user = user_datastore.create_user(username="admin", email="admin@example.com",
+                                          password=argon2.hash("adminpass"),
+                                          active=True, approved=True)
+        user_datastore.add_role_to_user(user, admin_role)
+        db.session.commit()
+        print("Admin user recreated successfully.")
 
 # Portfolio form
 class PortfolioForm(FlaskForm):
